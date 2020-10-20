@@ -20,4 +20,8 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CheckFailure):
         await ctx.send('You do not have the correct role for this command.')
 
+@bot.command(name= 'ping', help='tests if bot is responding')
+async def pingpong(ctx):
+	await ctx.send('pong')
+
 bot.run(TOKEN)
