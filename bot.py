@@ -25,6 +25,6 @@ async def new_color(ctx, color_name: str, color_req: discord.Color):
     existing_color = discord.utils.get(guild.roles, color=color_req)
     if not existing_color:
         print(f'Creating new Role: {color_req}')
-        await guild.create_role(name(color_name),color(color_req),reason='bot color add')
+        await guild.create_role(reason='bot color add', name=color_name,color=color_req)
 
 bot.run(TOKEN)
