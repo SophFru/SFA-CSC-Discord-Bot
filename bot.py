@@ -10,6 +10,10 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
+#enable intents
+intents = discord.Intents.default()
+intents.members = True
+
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
@@ -20,9 +24,6 @@ async def on_ready():
 async def pingpong(ctx):
 	await ctx.send('pong')
 
-#enable intents
-intents = discord.Intents.default()
-intents.members = True
 #dm's new members when they join
 @bot.event
 async def on_member_join(member):
