@@ -19,7 +19,7 @@ async def on_ready():
 async def pingpong(ctx):
 	await ctx.send('pong')
 
-@bot.command(name='magic8Ball')
+@bot.command(name='8Ball')
 async def magic8Ball(ctx):
     someResponses = [
         'As I see it, yes.',
