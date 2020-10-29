@@ -11,6 +11,7 @@ from apiclient.discovery import build
 load_dotenv()
 
 KEY = os.getenv('API_KEY')
+SEARCH_ENGINE_ID = os.getenv('CUSTOM_SEARCH_ID')
 
 
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -30,7 +31,7 @@ async def pingpong(ctx):
 resource = build('customsearch', 'v1', developerKey=KEY).cse()
 @bot.command(name='image', help='gets an image from google')
 async def getImage(ctx, query:str):
-    result = resource.list(q=query, cx='9a66aaa105489d5f5', searchType='image').execute()
+    result = resource.list(q=query, cx=SEARCH_ENGINE_ID, searchType='image').execute()
     firstLink = result['items'][0]['link']
     await ctx.send(firstLink)
 
