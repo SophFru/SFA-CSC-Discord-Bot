@@ -5,15 +5,13 @@ import discord
 
 from discord.ext import commands
 from dotenv import load_dotenv
-
 from apiclient.discovery import build
 
 load_dotenv()
 
+# Keys and IDs
 KEY = os.getenv('API_KEY')
-SEARCH_ENGINE_ID = os.getenv('CUSTOM_SEARCH_ID')
-
-
+CSE_ID = os.getenv('CUSTOM_SEARCH_ID')
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='!')
@@ -26,12 +24,11 @@ async def on_ready():
 async def pingpong(ctx):
 	await ctx.send('pong')
 
-
-
-resource = build('customsearch', 'v1', developerKey=KEY).cse()
-@bot.command(name='image', help='gets an image from google')
+# Custom Image Search
+resource = build("customsearch", 'v1', developerKey=KEY).cse()
+@bot.command(name='image', help='Gets an image from Google')
 async def getImage(ctx, query:str):
-    result = resource.list(q=query, cx=SEARCH_ENGINE_ID, searchType='image').execute()
+    result = resource.list(q=query, cx=CSE_ID, searchType='image').execute()
     firstLink = result['items'][0]['link']
     await ctx.send(firstLink)
 
