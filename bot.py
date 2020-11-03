@@ -32,7 +32,7 @@ async def getImage(ctx, query:str):
     firstLink = result['items'][0]['link']
     await ctx.send(firstLink)
 
-@bot.command(name='8Ball', help="Prints a Magic 8 Ball message)
+@bot.command(name='8Ball', help='Prints a Magic 8 Ball message')
 async def magic8Ball(ctx):
     someResponses = [
         'As I see it, yes.',
