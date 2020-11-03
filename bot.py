@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix='!')
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
 
-@bot.command(name= 'ping', help='tests if bot is responding')
+@bot.command(name= 'ping', help='Tests if bot is responding')
 async def pingpong(ctx):
 	await ctx.send('pong')
 
@@ -32,7 +32,7 @@ async def getImage(ctx, query:str):
     firstLink = result['items'][0]['link']
     await ctx.send(firstLink)
 
-@bot.command(name='8Ball')
+@bot.command(name='8Ball', help="Prints a Magic 8 Ball message)
 async def magic8Ball(ctx):
     someResponses = [
         'As I see it, yes.',
