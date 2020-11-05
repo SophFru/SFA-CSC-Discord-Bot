@@ -60,4 +60,30 @@ async def magic8Ball(ctx):
     response = random.choice(someResponses)
     await ctx.send(response)
 
+class votes:
+        forVote = 0
+        againstVote = 0
+
+@bot.command(name='poll', help='starts a poll')
+async def poll(ctx):
+    await ctx.send('New poll has been created.')
+    votes.forVote = 0
+    votes.againstVote = 0
+    return
+
+@bot.command(name='vote', help='vote \'yes\', vote \'no\', or vote \'score\'')
+async def castVote(ctx, vote):
+    
+    if vote == 'yes':
+        votes.forVote += 1
+        await ctx.send('for: ' + str(votes.forVote) + ' ' + 'against: ' + str(votes.againstVote))
+    elif vote == 'no':
+        votes.againstVote += 1
+        await ctx.send('for: ' + str(votes.forVote) + ' ' + 'against: ' + str(votes.againstVote))
+    elif vote == 'score':
+        await ctx.send('for: ' + str(votes.forVote) + ' ' + 'against: ' + str(votes.againstVote))
+    else:
+        await ctx.send('you must either vote yes or no')
+    return votes
+
 bot.run(TOKEN)
