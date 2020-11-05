@@ -29,14 +29,14 @@ async def pingpong(ctx):
 async def on_member_join(member):
     await member.create_dm()
     
-	#Welcome Message
-	msg = f'Hi {member.name}, welcome to the Computer Science Club Discord Server!'
-	msg += 'Be sure to change your nickname to your first name so we know who is who!\n\n'
-	msg += 'Follow our social media!\n'
-	msg += 'Instagram: sfacompsci \n'
-	msg += 'Twitter: sfaCompSci \n'
-	msg += 'facebook: sfaCompSci'
+    #Welcome Message
+    msg = f'Hi {member.name}, welcome to the Computer Science Club Discord Server!\n'
+    msg += 'Be sure to change your nickname to your first name so we know who is who!\n\n'
+    msg += 'Follow our social media!\n'
+    msg += 'Instagram: sfacompsci \n'
+    msg += 'Twitter: sfaCompSci \n'
+    msg += 'facebook: sfaCompSci'
 	
-	await member.dm_channel.send(msg)
+    await member.dm_channel.send(msg)
     
 bot.run(TOKEN)
