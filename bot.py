@@ -7,6 +7,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from apiclient.discovery import build
 
+
 load_dotenv()
 
 # Keys and IDs
@@ -14,7 +15,11 @@ KEY = os.getenv('API_KEY')
 CSE_ID = os.getenv('CUSTOM_SEARCH_ID')
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-bot = commands.Bot(command_prefix='!')
+#enable intents
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
@@ -24,6 +29,20 @@ async def on_ready():
 async def pingpong(ctx):
 	await ctx.send('pong')
 
+#dm's new members when they join
+@bot.event
+async def on_member_join(member):
+    await member.create_dm()
+    
+    #Welcome Message
+    msg = f'Hi {member.name}, welcome to the Computer Science Club Discord Server!\n'
+    msg += 'Be sure to change your nickname to your first name so we know who is who!\n\n'
+    msg += 'Follow our social media!\n'
+    msg += 'Instagram: sfacompsci \n'
+    msg += 'Twitter: sfaCompSci \n'
+    msg += 'facebook: sfaCompSci'
+    await member.dm_channel.send(msg)
+    
 # Custom Image Search
 resource = build("customsearch", 'v1', developerKey=KEY).cse()
 @bot.command(name='image', help='Gets an image from Google')
