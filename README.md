@@ -6,5 +6,6 @@ The Discord Bot will do the following:
 * send new member's a welcome message
 * Image search
 * Changes a member's role color based on a reaction to a message
+* Be able to run Yes/No Poles
 
 Important Note: Until we figure out a better solution, message Sophia on discord if you want to test a new command.
