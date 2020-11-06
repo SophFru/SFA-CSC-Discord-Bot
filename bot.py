@@ -60,30 +60,40 @@ async def magic8Ball(ctx):
     response = random.choice(someResponses)
     await ctx.send(response)
 
-class votes:
-        forVote = 0
-        againstVote = 0
+#Poll Commands
+'''
+class poll:
+    isReady = False
+    isActive = False
+    question = ''
+    emojiOptions = [1F44D	👍, 1F44E	👎, 🤷]
 
-@bot.command(name='poll', help='starts a poll')
-async def poll(ctx):
-    await ctx.send('New poll has been created.')
-    votes.forVote = 0
-    votes.againstVote = 0
-    return
+@bot.command(name='createPoll', help='creates a poll')
+async def setPoll(ctx, question):
+    if !poll.isReady:
+		await ctx.send('New poll has been created. Type !startPoll to launch poll.')
+		poll.isReady = True
+	else:
+		await ctx.send('Error: there is already a poll ready to launch')
 
-@bot.command(name='vote', help='vote \'yes\', vote \'no\', or vote \'score\'')
-async def castVote(ctx, vote):
-    
-    if vote == 'yes':
-        votes.forVote += 1
-        await ctx.send('for: ' + str(votes.forVote) + ' ' + 'against: ' + str(votes.againstVote))
-    elif vote == 'no':
-        votes.againstVote += 1
-        await ctx.send('for: ' + str(votes.forVote) + ' ' + 'against: ' + str(votes.againstVote))
-    elif vote == 'score':
-        await ctx.send('for: ' + str(votes.forVote) + ' ' + 'against: ' + str(votes.againstVote))
+@bot.command(name='startPoll', help='launches poll created by \'poll\')
+async def startPoll(ctx):
+    if poll.isReady:
+        poll.isActive = True
+        message = await ctx.send(poll.question)
+        for emoji in poll.emojiOptions:
+			await message.add_reaction(emoji)
     else:
-        await ctx.send('you must either vote yes or no')
-    return votes
+        await ctx.send('Error: no poll to launch')
 
+@bot.command(name='endPoll', help='Ends poll and declares a winner')
+async def endPoll(ctx):
+    if poll.isActive:
+        poll.isActive = False
+        poll.isReady = False
+		ctx.send("poll has ended")
+        #ctx.send(poll.question+ ' has concluded.' + ' wins!')
+    else:
+        await.send("Error: there are no active polls")
+'''
 bot.run(TOKEN)
