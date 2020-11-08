@@ -71,7 +71,7 @@ class poll:
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    if poll.isActive:
+    if poll.isActive and not user.bot:
         for emoji in poll.emojiOptions:
             if reaction.emoji == emoji:
                 index = poll.emojiOptions.index(emoji)
