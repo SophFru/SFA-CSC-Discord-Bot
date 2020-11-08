@@ -1,11 +1,12 @@
 # SFA-CSC-Discord-Bot
 Welcome to the repository for SFA Computer Science Club's new and improved Discord Bot!
 
-The Discord Bot will do the following:
-* send magic 8 Ball messages
+Our bot can do the following:
 * send new member's a welcome message
-* Image search
-* Changes a member's role color based on a reaction to a message
-* Be able to run Yes/No Poles
+* changes a member's role color based on a reaction to a message
+* create Yes/No/Maybe polls
+* create polls with custom emoji reactions
+* send magic 8 Ball messages
+* perform an image search
 
-Important Note: Until we figure out a better solution, message Sophia on discord if you want to test a new command.
+Want to test a new command? Message Sophia on Discord for details.
