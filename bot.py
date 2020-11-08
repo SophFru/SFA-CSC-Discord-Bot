@@ -61,12 +61,7 @@ async def magic8Ball(ctx):
     await ctx.send(response)
 
 #Poll Commands
-'''    
-@bot.event
-async def on_reaction_add(reaction, user):
-    for
-    if reaction ==
-'''
+
 class poll:
     isReady = False
     isActive = False
@@ -74,10 +69,18 @@ class poll:
     emojiOptions = []
     tally = []
 
+@bot.event
+async def on_reaction_add(reaction, user):
+    if poll.isActive:
+        for emoji in poll.emojiOptions:
+            if reaction.emoji == emoji:
+                index = poll.emojiOptions.index(emoji)
+                poll.tally[index] += 1
+
 @bot.command(name='pollCustom', help='creates a poll')
 async def setPoll(ctx, question, *choices):
     if not poll.isReady:
-        await ctx.send('New poll has been created. Type !startPoll to launch poll.')
+        await ctx.send('New poll has been created. Type !pollStart to launch poll.')
         poll.isReady = True
         poll.question = question
         poll.emojiOptions = choices
@@ -87,7 +90,7 @@ async def setPoll(ctx, question, *choices):
 @bot.command(name='pollYesNo', help='creates a poll')
 async def setPoll(ctx, question):
     if not poll.isReady:
-        await ctx.send('New poll has been created. Type !startPoll to launch poll.')
+        await ctx.send('New poll has been created. Type !pollStart to launch poll.')
         poll.isReady = True
         poll.question = question
         poll.emojiOptions = ['\U0001F44D', '\U0001F44E', '\U0001F937']
@@ -110,8 +113,23 @@ async def endPoll(ctx):
     if poll.isActive:
         poll.isActive = False
         poll.isReady = False
-        await ctx.send("poll has ended")
-        #ctx.send(poll.question+ ' has concluded.' + ' wins!')
+        isTie = False
+        highestNum = 1
+        for num in poll.tally:
+            if num > highestNum:
+                highestNum = num
+        amount = 0
+        for num in poll.tally:
+            if highestNum == num:
+                amount += 1
+        print(highestNum)
+        if amount > 1:
+            isTie = True
+        index = poll.tally.index(highestNum)
+        if isTie:
+            await ctx.send("poll has ended, it's a tie")
+        else:
+            await ctx.send("poll has ended, the winner is " + poll.emojiOptions[index])
         poll.tally.clear()
     else:
         await ctx.send("Error: there are no active polls")
