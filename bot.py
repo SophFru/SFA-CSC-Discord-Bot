@@ -22,7 +22,7 @@ async def on_ready():
 
 @bot.command(name= 'ping', help='Tests if bot is responding')
 async def pingpong(ctx):
-	await ctx.send('pong')
+    await ctx.send('pong')
 
 # Custom Image Search
 resource = build("customsearch", 'v1', developerKey=KEY).cse()
@@ -61,39 +61,59 @@ async def magic8Ball(ctx):
     await ctx.send(response)
 
 #Poll Commands
+'''    
+@bot.event
+async def on_reaction_add(reaction, user):
+    for
+    if reaction ==
 '''
 class poll:
     isReady = False
     isActive = False
     question = ''
-    emojiOptions = [1F44D	👍, 1F44E	👎, 🤷]
+    emojiOptions = []
+    tally = []
 
-@bot.command(name='createPoll', help='creates a poll')
+@bot.command(name='pollCustom', help='creates a poll')
+async def setPoll(ctx, question, *choices):
+    if not poll.isReady:
+        await ctx.send('New poll has been created. Type !startPoll to launch poll.')
+        poll.isReady = True
+        poll.question = question
+        poll.emojiOptions = choices
+    else:
+        await ctx.send('Error: there is already a poll ready to launch')
+        
+@bot.command(name='pollYesNo', help='creates a poll')
 async def setPoll(ctx, question):
-    if !poll.isReady:
-		await ctx.send('New poll has been created. Type !startPoll to launch poll.')
-		poll.isReady = True
-	else:
-		await ctx.send('Error: there is already a poll ready to launch')
+    if not poll.isReady:
+        await ctx.send('New poll has been created. Type !startPoll to launch poll.')
+        poll.isReady = True
+        poll.question = question
+        poll.emojiOptions = ['\U0001F44D', '\U0001F44E', '\U0001F937']
+    else:
+        await ctx.send('Error: there is already a poll ready to launch')
 
-@bot.command(name='startPoll', help='launches poll created by \'poll\')
+@bot.command(name='pollStart', help='launches poll created by \'poll\'')
 async def startPoll(ctx):
     if poll.isReady:
         poll.isActive = True
         message = await ctx.send(poll.question)
         for emoji in poll.emojiOptions:
-			await message.add_reaction(emoji)
+            await message.add_reaction(emoji)
+            poll.tally.append(0)
     else:
         await ctx.send('Error: no poll to launch')
 
-@bot.command(name='endPoll', help='Ends poll and declares a winner')
+@bot.command(name='pollEnd', help='Ends poll and declares a winner')
 async def endPoll(ctx):
     if poll.isActive:
         poll.isActive = False
         poll.isReady = False
-		ctx.send("poll has ended")
+        await ctx.send("poll has ended")
         #ctx.send(poll.question+ ' has concluded.' + ' wins!')
+        poll.tally.clear()
     else:
-        await.send("Error: there are no active polls")
-'''
+        await ctx.send("Error: there are no active polls")
+
 bot.run(TOKEN)
