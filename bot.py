@@ -66,8 +66,8 @@ class poll:
     isReady = False
     isActive = False
     question = ''
-    emojiOptions = []
-    tally = []
+    emojiOptions = [ ]
+    tally = [ ]
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -76,6 +76,14 @@ async def on_reaction_add(reaction, user):
             if reaction.emoji == emoji:
                 index = poll.emojiOptions.index(emoji)
                 poll.tally[index] += 1
+
+@bot.event
+async def on_reaction_remove(reaction, user):
+    if poll.isActive:
+        for emoji in poll.emojiOptions:
+            if reaction.emoji == emoji:
+                index = poll.emojiOptions.index(emoji)
+                poll.tally[index] -= 1
 
 @bot.command(name='pollCustom', help='creates a poll with custom reactions')
 async def setPoll(ctx, question, *choices):
@@ -115,20 +123,27 @@ async def startPoll(ctx):
 @bot.command(name='pollEnd', help='Ends poll and declares a winner')
 async def endPoll(ctx):
     if poll.isActive:
+        #Reset Booleans
         poll.isActive = False
         poll.isReady = False
         isTie = False
+        
+        #Find which emoji had the most votes
         highestNum = 1
         for num in poll.tally:
             if num > highestNum:
                 highestNum = num
         amount = 0
+        
+        #Find any ties
         for num in poll.tally:
             if highestNum == num:
                 amount += 1
         print(highestNum)
         if amount > 1:
             isTie = True
+
+        #Print results
         index = poll.tally.index(highestNum)
         if isTie:
             await ctx.send("poll has ended, it's a tie")
