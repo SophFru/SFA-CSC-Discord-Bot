@@ -77,7 +77,7 @@ async def on_reaction_add(reaction, user):
                 index = poll.emojiOptions.index(emoji)
                 poll.tally[index] += 1
 
-@bot.command(name='pollCustom', help='creates a poll')
+@bot.command(name='pollCustom', help='creates a poll with custom reactions')
 async def setPoll(ctx, question, *choices):
     if not poll.isReady:
         await ctx.send('New poll has been created. Type !pollStart to launch poll.')
@@ -87,7 +87,7 @@ async def setPoll(ctx, question, *choices):
     else:
         await ctx.send('Error: there is already a poll ready to launch')
         
-@bot.command(name='pollYesNo', help='creates a poll')
+@bot.command(name='pollYesNo', help='creates a yes/no poll')
 async def setPoll(ctx, question):
     if not poll.isReady:
         await ctx.send('New poll has been created. Type !pollStart to launch poll.')
