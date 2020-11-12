@@ -14,7 +14,11 @@ KEY = os.getenv('API_KEY')
 CSE_ID = os.getenv('CUSTOM_SEARCH_ID')
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-bot = commands.Bot(command_prefix='!')
+#enable intents
+intents = discord.Intents.default()
+intents.reactions = True
+
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
@@ -79,6 +83,7 @@ async def on_reaction_add(reaction, user):
 
 @bot.event
 async def on_reaction_remove(reaction, user):
+    print("Success!")
     if poll.isActive:
         for emoji in poll.emojiOptions:
             if reaction.emoji == emoji:
