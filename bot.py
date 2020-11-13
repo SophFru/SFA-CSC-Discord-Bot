@@ -75,6 +75,7 @@ class poll:
 
 @bot.event
 async def on_reaction_add(reaction, user):
+    print("Success?")
     if poll.isActive and not user.bot:
         for emoji in poll.emojiOptions:
             if reaction.emoji == emoji:
@@ -82,12 +83,12 @@ async def on_reaction_add(reaction, user):
                 poll.tally[index] += 1
 
 @bot.event
-async def on_reaction_remove(reaction, user):
+async def on_raw_reaction_remove(payload):
     print("Success!")
     if poll.isActive:
-        for emoji in poll.emojiOptions:
-            if reaction.emoji == emoji:
-                index = poll.emojiOptions.index(emoji)
+        for x in poll.emojiOptions:
+            if payload.emoji == x:
+                index = poll.emojiOptions.index(x)
                 poll.tally[index] -= 1
 
 @bot.command(name='pollCustom', help='creates a poll with custom reactions')
